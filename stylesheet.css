@@ -1,8 +1,7 @@
 /* For all elements */
 .forall{
-    text-align: center;
-    margin: auto 2px;
-    min-width: 4.4em;
+    text-align: left;
+    width: 6em;
 }
 
 .leftlign{
@@ -22,8 +21,28 @@
 
 .sumall{/* Will contain styling for sum of speeds */}
 
+.us {   /* Up Speed */
+    text-align: left;
+    width: 6.5em;
+}
+
+.ds { /* Down Speed  */
+    text-align: left;
+    width: 6.5em;
+}
+
+.ts { /* Total Speed */
+    text-align: center;
+    width: 6em;
+}
+
+.td { /* Total Download */
+    text-align: center;
+    width: 4.7em;
+}
+
 /* Font change on middle click*/
-.size {
+.size-0 {
     font-size: 1em;
 }
 
