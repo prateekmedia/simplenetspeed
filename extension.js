@@ -155,7 +155,7 @@ function updateNetSpeedComponents(up, down, up_down, total) { //UpSpeed, DownSpe
 }
 
 // Initalize NetSpeed
-var nsButton = null, nsBox = null, nsLayout = null;
+var nsButton = null, nsActor = null, nsLayout = null;
 
 function setupNetSpeed() {
 
@@ -172,7 +172,7 @@ function setupNetSpeed() {
     nsLayout.insert_column(1);
     nsLayout.insert_column(2);
 
-    nsBox = new Clutter.Box({
+    nsActor = new Clutter.Actor({
         layout_manager: nsLayout
     })
 
@@ -205,9 +205,8 @@ function setupNetSpeed() {
     nsButton = new PanelMenu.Button(0.0, ButtonName);
 
     (!crStng.lckMuseAct) ? nsButton.connect('button-press-event', mouseEventHandler) : null;
-    nsButton.add_child(nsBox);
+    nsButton.add_child(nsActor);
 
-    log(nsPos(), nsPosAdv()); 
     Main.panel.addToStatusArea(ButtonName, nsButton, nsPosAdv(), nsPos());
 }
 

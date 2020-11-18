@@ -32,13 +32,13 @@
 }
 
 .ts { /* Total Speed */
-    text-align: center;
+    text-align: left;
     width: 6em;
 }
 
 .td { /* Total Download */
-    text-align: center;
-    width: 4.7em;
+    text-align: left;
+    width: 6em;
 }
 
 /* Font change on middle click*/
