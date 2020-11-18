@@ -44,7 +44,7 @@ function fetchSettings() {
         nsPosAdv: settings.get_int('wposext')
     };
 
-    setupNetSpeed();
+    initNs();
 }
 
 function pushSettings() {
@@ -59,7 +59,7 @@ function pushSettings() {
     settings.set_int('wpos', crStng.nsPos);
     settings.set_int('wposext', crStng.nsPosAdv);
 
-    setupNetSpeed();
+    initNs();
 }
 
 // Helper Functions
@@ -121,7 +121,7 @@ function getTdStyle() {
     return ('td ' + 'size-' + String(crStng.fontmode));
 }
 
-function setupNetSpeedComponents() {
+function initNsLabels() {
     usLabel = new St.Label({
         text: 'Loading...',
         y_align: Clutter.ActorAlign.CENTER,
@@ -147,7 +147,7 @@ function setupNetSpeedComponents() {
     });
 }
 
-function updateNetSpeedComponents(up, down, up_down, total) { //UpSpeed, DownSpeed, UpSpeed + DownSpeed, TotalDownloaded
+function updateNsLabels(up, down, up_down, total) { //UpSpeed, DownSpeed, UpSpeed + DownSpeed, TotalDownloaded
     usLabel.set_text(up);
     dsLabel.set_text(down);
     tsLabel.set_text(up_down);
@@ -157,13 +157,13 @@ function updateNetSpeedComponents(up, down, up_down, total) { //UpSpeed, DownSpe
 // Initalize NetSpeed
 var nsButton = null, nsActor = null, nsLayout = null;
 
-function setupNetSpeed() {
+function initNs() {
 
     //Destroy the existing button.
     nsButton != null ? nsButton.destroy() : null;
 
     //Initialize component Labels
-    setupNetSpeedComponents();
+    initNsLabels();
 
     //Allocate 3 * 3 grid (suited for all modes)
     nsLayout = new Clutter.GridLayout();   
@@ -178,12 +178,21 @@ function setupNetSpeed() {
 
     //Attach the components to the grid.
     if (crStng.mode == 0 || crStng.mode == 1) {
+        if (!(crStng.isVertical) || !(crStng.showTotalDwnld)) {
+            nsActor.set_margin_top(6);
+        }
+
         nsLayout.attach(tsLabel, 1, 1, 1, 1);
+
         if (crStng.showTotalDwnld) {
             (crStng.isVertical) ? nsLayout.attach(tdLabel, 1, 2, 1, 1) : nsLayout.attach(tdLabel, 2, 1, 1, 1);
         }
     }
     else if (crStng.mode == 2 || crStng.mode == 3) {
+        if (!(crStng.isVertical)) {
+            nsActor.set_margin_top(6);
+        }
+        
         if (crStng.revIndicator) {
             nsLayout.attach(usLabel, 1, 1, 1, 1);
             (crStng.isVertical) ? nsLayout.attach(dsLabel, 1, 2, 1, 1) : nsLayout.attach(dsLabel, 2, 1, 1, 1);
@@ -198,6 +207,7 @@ function setupNetSpeed() {
         }
     }
     else {
+        nsActor.set_margin_top(6)
         nsLayout.attach(tdLabel, 1, 1, 1, 1);
     }
 
@@ -296,12 +306,12 @@ function parseStat() {
         (speed || speedUp) ? h = 0 : h++
 
         if(h<=8) {
-            updateNetSpeedComponents(DIcons(1) + " " + speedToString(speedUp),
+            updateNsLabels(DIcons(1) + " " + speedToString(speedUp),
             DIcons(0) + " " + speedToString(speed - speedUp),
             dot + " " + speedToString(speed),
             DIcons(2) + " " + speedToString(count - resetCount, 1));
         }
-        else updateNetSpeedComponents('--', '--', '--', DIcons(2) + " " + speedToString(count - resetCount, 1));
+        else updateNsLabels('--', '--', '--', DIcons(2) + " " + speedToString(count - resetCount, 1));
 
         lastCount = count;
         lastCountUp = countUp;
