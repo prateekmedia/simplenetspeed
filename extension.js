@@ -160,15 +160,12 @@ function initNs() {
     nsLayout.insert_column(2);
 
     nsActor = new Clutter.Actor({
-        layout_manager: nsLayout
+        layout_manager: nsLayout,
+        y_align: Clutter.ActorAlign.CENTER
     })
 
     //Attach the components to the grid.
     if (crStng.mode == 0 || crStng.mode == 1) {
-        if (!(crStng.isVertical) || !(crStng.showTotalDwnld)) {
-            nsActor.set_margin_top(6);
-        }
-
         nsLayout.attach(tsLabel, 1, 1, 1, 1);
 
         if (crStng.showTotalDwnld) {
@@ -176,10 +173,6 @@ function initNs() {
         }
     }
     else if (crStng.mode == 2 || crStng.mode == 3) {
-        if (!(crStng.isVertical)) {
-            nsActor.set_margin_top(6);
-        }
-        
         if (crStng.revIndicator) {
             nsLayout.attach(usLabel, 1, 1, 1, 1);
             (crStng.isVertical) ? nsLayout.attach(dsLabel, 1, 2, 1, 1) : nsLayout.attach(dsLabel, 2, 1, 1, 1);
@@ -194,7 +187,6 @@ function initNs() {
         }
     }
     else {
-        nsActor.set_margin_top(6)
         nsLayout.attach(tdLabel, 1, 1, 1, 1);
     }
 
