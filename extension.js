@@ -67,13 +67,29 @@ function nsPosAdv() {
 
 function speedToString(amount, rMode = 0) {
 
-    let speed_map = ["B", "KB", "MB", "GB"].map(
+    let speed_map = [" B", "KB", "MB", "GB"].map(
         (rMode == 1 && (crStng.mode == 1 || crStng.mode == 3 || crStng.mode == 4)) ? v => v : //KB
         (rMode == 1 && (crStng.mode == 0 || crStng.mode == 2)) ? v => v.toLowerCase() : //kb
         (crStng.mode == 0 || crStng.mode == 2) ? v => v.toLowerCase() + "/s" : //kb/s
         (crStng.mode == 1 || crStng.mode == 3) ? v => v + "/s" : v=>v); //KB/s
     
-    if (amount === 0) return "   0.0 "  + speed_map[0];
+    function padValue(value) {
+        let speed_pad = 5, total_pad = 6;
+
+        if (rMode == 1) {   //Total Download
+            if (value.length < total_pad)
+                return (" ".repeat(total_pad - value.length) + value);
+        }
+        else {
+            if (value.length < speed_pad) { //Speed
+                return (" ".repeat(speed_pad - value.length) + value);
+            }
+        }
+
+        return value;   //Return the same.
+    }
+    
+    if (amount === 0) return (padValue("0") + " " + speed_map[0]);
     if (crStng.mode == 0 || crStng.mode == 2) amount = amount * 8;
 
     let unit = 0;
@@ -89,9 +105,7 @@ function speedToString(amount, rMode = 0) {
     let digits = ((crStng.mode==4 || rMode !=0) && ChkifInt(amount)) ? 0 : //For Integer like 21.0
      ((crStng.mode==4 || rMode !=0) && !ChkifInt(amount*10)) ? 2 /* For floats like 21.11 */ : 1 //For floats like 21.2
 
-    let spaceNum = 4 - Math.ceil(Math.round(100*Math.log(amount)/Math.log(10))/100); //This will give the number of digits that number have substracted by four
-
-    return " ".repeat(spaceNum) + amount.toFixed(digits) + " " + speed_map[unit];
+    return (padValue(amount.toFixed(digits)) + " " + speed_map[unit]);
 }
 
 // NetSpeed Components
