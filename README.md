@@ -19,19 +19,19 @@
 - [x] Add Show Upload First button to show upload speed first PR#2
 - [x] Add Color Customizations to make the extension your own PR#7
 - ( Thanks to [m0hithreddy@github](https://github.com/m0hithreddy) for above features )   
-- [x] Add Use Monospace Font button in [Preference](#Feature-Highlights-for-Prefrences)
-- [x] Add Hide when Disconnected button in [Preference](#Feature-Highlights-for-Prefrences)
+- [x] Add Use Monospace Font button in [Preference](#Feature-Highlights-for-Preferences)
+- [x] Add Hide when Disconnected button in [Preference](#Feature-Highlights-for-Preferences)
 
 #### Feature Highlights :
 - [x] Adjustable Refresh time
 - [x] Supports GNOME SHELL 3.38 and Backwards compatible
 - [x] More cleaner ui
 - [x] Add space b/w speed and their units
-- [x] Add [Preference](#Feature-Highlights-for-Prefrences) Menu for extension customization
+- [x] Add [Preference](#Feature-Highlights-for-Preferences) Menu for extension customization
 - [x] Add Vertical Alignment Support
 - [x] Add Two Icon sets for Indicators
 
-#### Feature Highlights for Prefrences
+#### Feature Highlights for Preferences
 - [x] Add Lock Mouse Actions button to Freeze [Mouse Events](#mouse-events)
 - [x] Add Position menu(with Advanced option) to pinpoint where to place the indicator on the Panel.
 - [x] Add Refresh time field by which you can change refresh time value between 1.0 sec to 10.0 sec.
