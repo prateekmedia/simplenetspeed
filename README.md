@@ -20,6 +20,7 @@
 - [x] Add Color Customizations to make the extension your own PR#7
 - [x] Add *Use Custom Font* button in [Preference](#Feature-Highlights-for-Preferences)
 - [x] Add *Hide when Disconnected* button in [Preference](#Feature-Highlights-for-Preferences)
+- [x] Add *Use Shorten Units* button in [Preference](#Feature-Highlights-for-Preferences)
 
 #### Features
 - [x] Cleaner UI
@@ -35,7 +36,7 @@
 - [x] Add *Refresh time* field by which you can change refresh rate value between 1.0 sec to 10.0 sec.
 
 
-If you faced a **issue** then you can **[file an issue here](https://github.com/prateekmedia/netspeedsimplified/issues)**
+If you faced an **issue** then you can **[file an issue here](https://github.com/prateekmedia/netspeedsimplified/issues)**
  
 #### Modes
 - Total net speed in bits per second
