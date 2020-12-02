@@ -15,12 +15,12 @@
 ***Tested on GNOME 3.36 and 3.38***
 
 #### Whats new in v20 and above:
-- [x] Completely revamped whole codebase
-- [x] Add Show Upload First button to show upload speed first
-- [x] Add Color Customizations to make the extension your own  
+- [x] Completely revamped whole codebase PR#4
+- [x] Add Show Upload First button to show upload speed first PR#2
+- [x] Add Color Customizations to make the extension your own PR#7
 - ( Thanks to [m0hithreddy@github](https://github.com/m0hithreddy) for above features )   
-- [x] Add Use Monospace Font button in Preferences
-- [x] Add Hide when Disconnected button in Preferences
+- [x] Add Use Monospace Font button in [Preference](#Feature-Highlights-for-Prefrences)
+- [x] Add Hide when Disconnected button in [Preference](#Feature-Highlights-for-Prefrences)
 
 #### Feature Highlights :
 - [x] Adjustable Refresh time
