@@ -5,6 +5,9 @@ set -x
 EXT_HOME=~/.local/share/gnome-shell/extensions/netspeedsimplified@prateekmedia.extension
 PROJECT_HOME=https://raw.githubusercontent.com/prateekmedia/netspeedsimplified/main
 
+#Remove Old files
+rm -rf ${EXT_HOME}
+
 #Create a directory structure
 mkdir -p ${EXT_HOME}
 mkdir -p ${EXT_HOME}/schemas
