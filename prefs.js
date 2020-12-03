@@ -137,7 +137,7 @@ Prefs.prototype =
       vbox.add(new Gtk.Separator({visible : true}));
     }
 
-  	let frame = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, border_width: 10});
+  	let frame = new Gtk.ScrolledWindow();
   	let label = new Gtk.Label({ label: "<b>General Settings</b>", use_markup: true, xalign:0});
   	let vbox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_left: 20});
   	let mfooter = new Gtk.Label({ label: "<b>Pro Tip : Hover over any Label To know more about it</b>",use_markup: true, margin_top: 20});
@@ -224,9 +224,7 @@ Prefs.prototype =
 	let tdColorButton = newGtkBox();
 	vBoxAddColorButton(tdColorButton, "Total Download Color", "tdcolor", "Select the total download color");
 
-	frame.add(label);
 	frame.add(vbox);
-	frame.add(mfooter);
 	frame.show_all();
 	onColorToggle(thset.get_boolean("colortggle"));
 
