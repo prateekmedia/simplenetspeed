@@ -137,11 +137,32 @@ Prefs.prototype =
       vbox.add(new Gtk.Separator({visible : true}));
     }
 
+    function vBoxAddEntry(whichHbox, getLbl, getString, getTooTip = "", func){
+      boolComp = (thset.get_string(getString) == thset.get_default_value(getString).unpack());
+      getLbl =  boolComp ? getLbl :
+      `<i>${getLbl}</i>`
+      tootext = boolComp ? "" : "The Value is Changed"
+      whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });  
+      whichVlue = new Gtk.Entry({text: thset.get_string(getString), tooltip_text: tootext, placeholder_text: "Press Enter to apply" });
+      whichVlue.connect('activate', (widget) => {
+        thset.set_string(getString, widget.get_text());
+        if (func != undefined){ func(widget.active); } 
+		else { thset.set_boolean('restartextension' , true); }
+      })
+
+      whichHbox.pack_start(whichLbl, true, true, 0);
+      whichHbox.add(whichVlue);
+
+      vbox.add(whichHbox);
+      vbox.add(new Gtk.Separator({visible : true}));
+    }
+    
   	let frame = new Gtk.ScrolledWindow();
   	let label = new Gtk.Label({ label: "<b>General Settings</b>", use_markup: true, xalign:0});
   	let vbox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_left: 20});
   	let mfooter = new Gtk.Label({ label: "<b>Pro Tip : Hover over any Label To know more about it</b>",use_markup: true, margin_top: 20});
 
+	vbox.add(label);
 	//For Position
 	let hboxWPos = newGtkBox();
 	vBoxAddSeleCt("wpos", hboxWPos, "Position on the Panel", ["Right","Left","Center"], "Choose where to Place the extension on the Panel");
@@ -190,6 +211,10 @@ Prefs.prototype =
 	let hboxShUni = newGtkBox();
 	vBoxAddTgglBtn(hboxShUni, "Shorten Units", "shortenunits", "Enabling it will result in shorten units like K instead of KB");
 	
+	//For Custom Font name
+	let hboxCustFont = newGtkBox();
+	vBoxAddEntry(hboxCustFont, "Custom Font Name", "customfont", "Enter the font name you want, you can also write style here for all elements except indicators")
+	
   //Colors
 	let hboxColor = newGtkBox();
 	function onColorToggle(widget){
@@ -223,7 +248,7 @@ Prefs.prototype =
 	//Total Download Color 
 	let tdColorButton = newGtkBox();
 	vBoxAddColorButton(tdColorButton, "Total Download Color", "tdcolor", "Select the total download color");
-
+	vbox.add(mfooter);
 	frame.add(vbox);
 	frame.show_all();
 	onColorToggle(thset.get_boolean("colortggle"));

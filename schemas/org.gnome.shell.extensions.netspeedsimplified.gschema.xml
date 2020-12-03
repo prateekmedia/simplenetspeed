@@ -46,6 +46,9 @@
       <key name="shortenunits" type="b">
         <default>false</default>
       </key>
+      <key name="customfont" type="s">
+        <default>""</default>
+      </key>
       <key name="colortggle" type="b">
         <default>false</default>
       </key>
