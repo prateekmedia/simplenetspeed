@@ -9,13 +9,13 @@ const Clutter = imports.gi.Clutter,
  Convenience = Me.imports.convenience,
  schema = 'org.gnome.shell.extensions.netspeedsimplified',
  ButtonName = "ShowNetSpeedButton",
- rCConst=4, //Right Click 4 times to toggle Vertical Alignment
- B_UNITS;
+ rCConst=4; //Right Click 4 times to toggle Vertical Alignment
 
 let settings, timeout,
   lastCount = 0, lastSpeed = 0, lastCountUp = 0,
   resetNextCount=false, resetCount=0,
-  hideCount=8;
+  hideCount=8,
+  B_UNITS;
 
 // Settings
 var crStng; //Initialized in enable()
@@ -40,7 +40,7 @@ function fetchSettings() {
         tdColor: settings.get_string('tdcolor')
     };
 
-    B_UNITS = (shortenUnits) ? ['B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'] : [' B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB'] ;
+    B_UNITS = (crStng.shortenUnits) ? ['B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'] : [' B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB'] ;
 
     initNs();
 }
@@ -87,6 +87,7 @@ function speedToString(amount, rMode = 0) {
     let digits = (crStng.mode==4 || rMode !=0) ? 2 /* For floats like 21.11 and total speed mode */ : 1 //For floats like 21.2
 
 	let spaceNum = 3 - Math.ceil(Math.log10(amount +1));
+	spaceNum <0 ? spaceNum = 0 : null
 
     return " ".repeat(spaceNum) + amount.toFixed(digits) + " " + speed_map[unit];
 }
@@ -230,7 +231,8 @@ function initNs() {
 }
 
 function nsDestroy() {
-    nsButton != null ? (nsButton.destroy(), nsButton = null) : null;
+    nsButton != null ? nsButton.destroy() : null
+    nsButton = null;
 }
 
 // Mouse Event Handler
@@ -367,7 +369,6 @@ function enable() {
 
 function disable() {
     Mainloop.source_remove(timeout);
-    nsButton.destroy();
-    nsButton = null;
+    nsDestroy();
 }
 

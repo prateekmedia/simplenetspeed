@@ -181,7 +181,15 @@ Prefs.prototype =
 	//For Lock Mouse Actions
 	let hboxLckMuseAct = newGtkBox();
 	vBoxAddTgglBtn(hboxLckMuseAct, "Lock Mouse Actions", "lockmouseactions", "Enabling it will Lock Mouse Actions");
+	
+	//For Hide When Disconnected
+	let hboxHideInd = newGtkBox();
+	vBoxAddTgglBtn(hboxHideInd, "Hide When Disconnected", "hideindicator", "Enabling it will Hide Indicator when disconnected");
 
+	//For Shorten Units
+	let hboxShUni = newGtkBox();
+	vBoxAddTgglBtn(hboxShUni, "Shorten Units", "shortenunits", "Enabling it will result in shorten units like K instead of KB");
+	
   //Colors
 	let hboxColor = newGtkBox();
 	function onColorToggle(widget){
