@@ -12,12 +12,9 @@ const Clutter = imports.gi.Clutter,
  rCConst=4; //Right Click 4 times to toggle Vertical Alignment
 
 let settings, timeout,
-  spaCe,
   lastCount = 0, lastSpeed = 0, lastCountUp = 0,
   resetNextCount=false, resetCount=0,
-  newLine, h=8, tTime=0;
-
-var extRaw;
+  hideCount=8;
 
 // Settings
 var crStng; //Initialized in enable()
@@ -52,7 +49,7 @@ function pushSettings() {
     initNs();
 }
 
-// Helper Functions
+//Helper Functions
 function DIcons(iNum) {
     return [  ["🡳","🡱","Σ"] , ["↓","↑","∑"]  ][crStng.chooseIconSet][iNum];
 }
@@ -309,9 +306,9 @@ function parseStat() {
             resetCount = count;
         }
         
-        (speed || speedUp) ? h = 0 : h++
+        (speed || speedUp) ? hideCount = 0 : hideCount++
 
-        if(h<=8) {
+        if(hideCount<=8) {
             updateNsLabels(" " + speedToString(speedUp),
             " " + speedToString(speed - speedUp),
             " " + speedToString(speed),
