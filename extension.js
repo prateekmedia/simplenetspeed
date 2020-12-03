@@ -9,7 +9,8 @@ const Clutter = imports.gi.Clutter,
  Convenience = Me.imports.convenience,
  schema = 'org.gnome.shell.extensions.netspeedsimplified',
  ButtonName = "ShowNetSpeedButton",
- rCConst=4; //Right Click 4 times to toggle Vertical Alignment
+ rCConst=4, //Right Click 4 times to toggle Vertical Alignment
+ B_UNITS;
 
 let settings, timeout,
   lastCount = 0, lastSpeed = 0, lastCountUp = 0,
@@ -29,6 +30,8 @@ function fetchSettings() {
         chooseIconSet: settings.get_int('chooseiconset'),
         revIndicator: settings.get_boolean('reverseindicators'),
         lckMuseAct: settings.get_boolean('lockmouseactions'),
+        hideInd: settings.get_boolean('hideindicator'),
+        shortenUnits: settings.get_boolean('shortenunits'),
         nsPos: settings.get_int('wpos'),
         nsPosAdv: settings.get_int('wposext'),
         usColor: settings.get_string('uscolor'),
@@ -36,6 +39,8 @@ function fetchSettings() {
         tsColor: settings.get_string('tscolor'),
         tdColor: settings.get_string('tdcolor')
     };
+
+    B_UNITS = (shortenUnits) ? ['B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'] : [' B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB'] ;
 
     initNs();
 }
@@ -64,7 +69,7 @@ function nsPosAdv() {
 
 function speedToString(amount, rMode = 0) {
 
-    let speed_map = [" B", "KB", "MB", "GB"].map(
+    let speed_map = B_UNITS.map(
         (rMode == 1 && (crStng.mode == 1 || crStng.mode == 3 || crStng.mode == 4)) ? v => v : //KB
         (rMode == 1 && (crStng.mode == 0 || crStng.mode == 2)) ? v => v.toLowerCase() : //kb
         (crStng.mode == 0 || crStng.mode == 2) ? v => v.toLowerCase() + "/s" : //kb/s
@@ -162,7 +167,7 @@ var nsButton = null, nsActor = null, nsLayout = null;
 function initNs() {
 
     //Destroy the existing button.
-    nsButton != null ? nsButton.destroy() : null;
+    nsDestroy();
 
     //Initialize component Labels
     initNsLabels();
@@ -222,6 +227,10 @@ function initNs() {
     nsButton.add_child(nsActor);
 
     Main.panel.addToStatusArea(ButtonName, nsButton, nsPosAdv(), nsPos());
+}
+
+function nsDestroy() {
+    nsButton != null ? (nsButton.destroy(), nsButton = null) : null;
 }
 
 // Mouse Event Handler
@@ -306,15 +315,25 @@ function parseStat() {
             resetCount = count;
         }
         
-        (speed || speedUp) ? hideCount = 0 : hideCount++
+        (speed || speedUp) ? hideCount = 0 : hideCount <= 8 ? hideCount++ : null
 
         if(hideCount<=8) {
+            nsButton == null ? initNs() : null
+
             updateNsLabels(" " + speedToString(speedUp),
             " " + speedToString(speed - speedUp),
             " " + speedToString(speed),
             " " + speedToString(count - resetCount, 1));
         }
-        else updateNsLabels('--', '--', '--', " " + speedToString(count - resetCount, 1));
+        else {
+            if (crStng.hideInd) {
+                nsDestroy();
+            }
+            else {
+                nsButton == null ? initNs() : null
+                updateNsLabels('--', '--', '--', speedToString(count - resetCount, 1));
+            }
+        }
 
         lastCount = count;
         lastCountUp = countUp;

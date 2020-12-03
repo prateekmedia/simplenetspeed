@@ -40,6 +40,12 @@
       <key name="reverseindicators" type="b">
         <default>false</default>
       </key>
+      <key name="hideindicator" type="b">
+        <default>true</default>
+      </key>
+      <key name="shortenunits" type="b">
+        <default>false</default>
+      </key>
       <key name="colortggle" type="b">
         <default>false</default>
       </key>
