@@ -10,11 +10,10 @@
 <p align="center"><img src='https://raw.githubusercontent.com/prateekmedia/netspeedsimplified/main/images/screenshoot.png' width="500px"  alt="Screenshot"/>
 </p>
 
-***Tested on GNOME 40***
+***Tested on GNOME 3.38***
 
 #### What's new
 - [x] Add Limit Unit option
-- [x] Add Gnome 40 Support
 - [x] Fix a bug where refresh time was getting reset to 6.5
 - [x] Used Min Width 3.0 by default
 
@@ -61,13 +60,13 @@ If you faced an **issue** then you can **[file an issue here](https://github.com
 ### Quick install
 For quick install use below command:
 
-    $ bash -c "$(curl -sL https://git.io/Jk28b)"
+    $ bash -c "$(curl -sL https://git.io/JYIMg)"
 
 
 ### Installing using Make
 * Step 1 : Getting the sources from repository
 
-      $ git clone https://github.com/prateekmedia/netspeedsimplified.git
+      $ git clone https://github.com/prateekmedia/netspeedsimplified.git --branch=old
 
 * Step 2 : Running make (install)
 
