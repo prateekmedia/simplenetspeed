@@ -35,11 +35,11 @@ Prefs.prototype =
 	}
 
 	function vBoxSpinBtn(getDouble, whichHbox, getLbl = "", getTooTip = "", lwer , uper, stpInc = 1, digs = 0, nume = true, pgeInc = 1, pgeSiz = 0, clmrate = 1){
-		boolComp = (thset.get_double(getDouble) === thset.get_default_value(getDouble).unpack());
+		let boolComp = (thset.get_double(getDouble) === thset.get_default_value(getDouble).unpack());
 		getLbl =  boolComp ? getLbl :
 		  `<i>${getLbl}</i>`
-		whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });  
-		whichSpinBtn = new Gtk.SpinButton({
+		let whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });
+		let whichSpinBtn = new Gtk.SpinButton({
 		adjustment: new Gtk.Adjustment({
 		  lower: lwer, upper: uper, step_increment: stpInc, page_increment: pgeInc, page_size: pgeSiz 
 		}),
@@ -62,44 +62,44 @@ Prefs.prototype =
 	}
     
 	function vBoxAddSeleCt(getInt, whichHbox, getLbl, aRray = [], getTooTip = ""){
-		boolComp = (thset.get_int(getInt) == thset.get_default_value(getInt).unpack());
+		let boolComp = (thset.get_int(getInt) == thset.get_default_value(getInt).unpack());
 		getLbl =  boolComp ? getLbl :
 		`<i>${getLbl}</i>`
-		tootext = boolComp ? "" : "The Value is Changed"
+		let tootext = boolComp ? "" : "The Value is Changed"
 
-		whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0,tooltip_text: getTooTip});
-		whichVlue =  new Gtk.ComboBoxText({halign: Gtk.Align.END,  tooltip_text: tootext });
+		let whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0,tooltip_text: getTooTip});
+		let whichVlue =  new Gtk.ComboBoxText({halign: Gtk.Align.END,  tooltip_text: tootext });
 
 		    for (i in aRray){
 			  whichVlue.append_text(aRray[i]);
 		} 
 
-		whichVlue.set_active(Math.round(thset.get_int(getInt))); 
+		whichVlue.set_active(Math.round(thset.get_int(getInt)));
 		whichVlue.connect('changed', (widget) => {
 			let valueMode = widget.get_active();
 			thset.set_int(getInt, valueMode);
 			thset.set_boolean('restartextension' , true);
 		})
-		whichHbox.add(whichLbl);
-		whichHbox.pack_end(whichVlue, true, true, 0);
+		whichHbox.pack_start(whichLbl, true, true, 0);
+		whichHbox.add(whichVlue);
 
 		vbox.add(whichHbox);
 	}
 
 	function vBoxAddTgglBtn(whichHbox, getLbl, getBool, getTooTip = "", func){
-		boolComp = true;
+		let boolComp = true;
 		if (func ==undefined){
 		boolComp = (thset.get_boolean(getBool) == thset.get_default_value(getBool).unpack());
 			getLbl =  boolComp ? getLbl :
 			`<i>${getLbl}</i>`
 		}
-		tootext = boolComp ? "" : "The Value is Changed"
-		whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });  
-		whichVlue = new Gtk.Switch({
+		let tootext = boolComp ? "" : "The Value is Changed"
+		let whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });
+		let whichVlue = new Gtk.Switch({
 		active: getBool ? thset.get_boolean(getBool) : false, tooltip_text: tootext 
 		});
 		whichVlue.connect('notify::active', (widget) => {
-			if (func != undefined) func(widget.active); 
+			if (func != undefined) func(widget.active);
 			else {
 				thset.set_boolean(getBool, widget.active);
 				thset.set_boolean('restartextension' , true);
@@ -114,21 +114,21 @@ Prefs.prototype =
 
 	function vBoxAddColorButton(whichHbox, getLbl, getColor, getToolTip = "") {
 		//Deterime whether the option value is changed from default value
-		boolComp = (thset.get_string(getColor) == thset.get_default_value(getColor).unpack());
+		let boolComp = (thset.get_string(getColor) == thset.get_default_value(getColor).unpack());
 		getLbl = boolComp ? getLbl : `<i>${getLbl}</i>`
-		tootext = boolComp ? "" : "The Value is Changed"
+		let tootext = boolComp ? "" : "The Value is Changed"
 
 		//Create the option name
-		whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getToolTip});
+		let whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getToolTip});
 
 		//Create RGBA
-		rgba = new Gdk.RGBA();
+		let rgba = new Gdk.RGBA();
 		rgba.parse(thset.get_string(getColor));
 
 		//Create ColorButton 
-		colorButton = new Gtk.ColorButton({tooltip_text: tootext});
+		let colorButton = new Gtk.ColorButton({tooltip_text: tootext});
 		colorButton.set_rgba(rgba);
-		colorButton.connect('notify::color', (widget) => {  //On the event of modification
+		colorButton.connect('color-set', (widget) => {  //On the event of modification
 			rgba = widget.get_rgba();
 			thset.set_string(getColor, rgba.to_string());
 			thset.set_boolean('restartextension' , true);
@@ -141,12 +141,12 @@ Prefs.prototype =
 	}
 
 	function vBoxAddEntry(whichHbox, getLbl, getString, getTooTip = "", func){
-		boolComp = (thset.get_string(getString) == thset.get_default_value(getString).unpack());
+		let boolComp = (thset.get_string(getString) == thset.get_default_value(getString).unpack());
 		getLbl =  boolComp ? getLbl :
 		`<i>${getLbl}</i>`
-		tootext = boolComp ? "" : "The Value is Changed"
-		whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });  
-		whichVlue = new Gtk.Entry({text: thset.get_string(getString), tooltip_text: tootext, placeholder_text: "Press Enter to apply" });
+		let tootext = boolComp ? "" : "The Value is Changed"
+		let whichLbl = new Gtk.Label({label: getLbl, use_markup: true, xalign: 0, tooltip_text: getTooTip });
+		let whichVlue = new Gtk.Entry({text: thset.get_string(getString), tooltip_text: tootext, placeholder_text: "Press Enter to apply" });
 		whichVlue.connect('activate', (widget) => {
 		thset.set_string(getString, widget.get_text());
 			if (func != undefined){ func(widget.active); }
@@ -161,10 +161,9 @@ Prefs.prototype =
 	}
     
   	let frame = new Gtk.ScrolledWindow();
-  	let label = new Gtk.Label({ label: "<b>General Settings</b>", use_markup: true, xalign:0});
-  	let vbox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_left: 25, margin_right: 25});
-  	let resetBtn = new Gtk.Button ({label: "Restore Defaults"});
-  	let mfooter = new Gtk.Label({ label: "<b>Pro Tip : Hover over any Label To know more about it</b>",use_markup: true, margin_top: 20});
+  	let label = new Gtk.Label({ label: "<b>General Settings</b>", use_markup: true, xalign:0, margin_top: 15});
+  	let vbox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_start: 25, margin_end: 25});
+  	let resetBtn = new Gtk.Button ({label: "Restore Defaults", margin_bottom: 15});
   	
 	resetBtn.connect ("clicked", ()=>{
 		let strArray = ["customfont", "uscolor", "dscolor", "tscolor", "tdcolor"];
@@ -194,7 +193,7 @@ Prefs.prototype =
 
 	//Refresh time
 	let hboxRTime = newGtkBox();
-	vBoxSpinBtn("refreshtime", hboxRTime, "Refresh Time", "Change Refresh time value from anywhere b/w 1 to 10", 1.0, 10.0, .1, 1);  
+	vBoxSpinBtn("refreshtime", hboxRTime, "Refresh Time", "Change Refresh time value from anywhere b/w 1 to 10", 1.0, 10.0, .1, 1);
 
 	//For Modes
 	let hboxMode = newGtkBox();
@@ -215,6 +214,10 @@ Prefs.prototype =
 	//For Toggling Old Icons
 	let hboxIconset = newGtkBox();
 	vBoxAddSeleCt("chooseiconset", hboxIconset, "Choose Icons Set", [" 🡳,  🡱,  Σ ", " ↓,  ↑,  ∑ "], "Choose which icon set to display");
+	
+        //For Limiting upper limit of speed
+        let hboxLimitUnit = newGtkBox();
+        vBoxAddSeleCt("limitunit", hboxLimitUnit, "Limit Unit", ["(None)", 'K', 'M', 'G', 'T', 'P', 'E', 'Z'], "Choose unit limitation set to display");
 
 	//For Hide When Disconnected
 	let hboxHideInd = newGtkBox();
@@ -224,23 +227,6 @@ Prefs.prototype =
 	let hboxShUni = newGtkBox();
 	vBoxAddTgglBtn(hboxShUni, "Shorten Units", "shortenunits", "Enabling it will result in shorten units like K instead of KB");
 	
-	//Colors
-	let hboxColor = newGtkBox();
-	function showOrHide(widget){
-		let advWidgets = [hboxRevInd, hboxLckMuseAct, hboxMinWidth, hboxCustFont, usColorButton, dsColorButton, tsColorButton, tdColorButton];
-		if (widget){
-			for (i in advWidgets){
-				advWidgets[i].show();
-			}
-		} else {
-			for (i in advWidgets){
-				advWidgets[i].hide();
-			}
-		}
-	}
-	
-	vBoxAddTgglBtn(hboxColor, "Show Advanced Options", "", "Enabling it will Show all Advanced customizations", showOrHide);
-  
 	//For Reversing the download and upload indicators
 	let hboxRevInd = newGtkBox();
 	vBoxAddTgglBtn(hboxRevInd, "Show Upload First", "reverseindicators", "Enabling it will reverse the upload and download speed indicators");
@@ -251,7 +237,7 @@ Prefs.prototype =
 	
 	//Minimum Width
 	let hboxMinWidth = newGtkBox();
-	vBoxSpinBtn("minwidth", hboxMinWidth, "Minimum Width", "Change Minimum Width value from anywhere b/w 3em to 10em", 3.0, 10.0, .5, 1);  
+	vBoxSpinBtn("minwidth", hboxMinWidth, "Minimum Width", "Change Minimum Width value from anywhere b/w 3em to 10em", 3.0, 10.0, .5, 1);
 	
 	//For Custom Font name
 	let hboxCustFont = newGtkBox();
@@ -274,12 +260,9 @@ Prefs.prototype =
 	vBoxAddColorButton(tdColorButton, "Total Download Color", "tdcolor", "Select the total download color");
 	
 	vbox.add(resetBtn);
-	vbox.add(mfooter);
 	frame.add(vbox);
 	frame.show_all();
 	frame.connect('destroy', Gtk.main_quit);
-
-	showOrHide(false);
 
 	return frame;
 	}

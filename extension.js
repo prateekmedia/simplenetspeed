@@ -28,6 +28,7 @@ function fetchSettings() {
         showTotalDwnld: settings.get_boolean('togglebool'),
         isVertical: settings.get_boolean('isvertical'),
         chooseIconSet: settings.get_int('chooseiconset'),
+        limitunit: settings.get_int('limitunit'),
         revIndicator: settings.get_boolean('reverseindicators'),
         lckMuseAct: settings.get_boolean('lockmouseactions'),
         minWidth: settings.get_double('minwidth'),
@@ -75,15 +76,19 @@ function speedToString(amount, rMode = 0) {
         (rMode == 1 && (crStng.mode == 1 || crStng.mode == 3 || crStng.mode == 4)) ? v => v : //KB
         (rMode == 1 && (crStng.mode == 0 || crStng.mode == 2)) ? v => v.toLowerCase() : //kb
         (crStng.mode == 0 || crStng.mode == 2) ? v => v.toLowerCase() + "/s" : //kb/s
-        (crStng.mode == 1 || crStng.mode == 3) ? v => v + "/s" : v=>v); //KB/s
+        (crStng.mode == 1 || crStng.mode == 3) ? v => v + "/s" :  //KB/s
+         v=>v); // Others
     
     if (amount === 0) return "  0.0 "  + speed_map[0];
     if (crStng.mode == 0 || crStng.mode == 2) amount = amount * 8;
 
     let unit = 0;
     while (amount >= 1000) { // 1M=1024K, 1MB/s=1000MB/s
+        if (crStng.limitunit != 0 && unit >= crStng.limitunit) {
+            break;
+        }
         amount /= 1000;
-        ++unit;
+        unit++;
     }
 
     let digits = (crStng.mode==4 || rMode !=0) ? 2 /* For floats like 21.11 and total speed mode */ : 1 //For floats like 21.2

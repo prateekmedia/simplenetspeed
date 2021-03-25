@@ -10,30 +10,30 @@
 <p align="center"><img src='https://raw.githubusercontent.com/prateekmedia/netspeedsimplified/main/images/screenshoot.png' width="500px"  alt="Screenshot"/>
 </p>
 
-***Tested on GNOME 3.36 and 3.38***
+***Tested on GNOME 40***
 
 #### What's new
-- [x] Completely revamped whole codebase PR#4
-- [x] Add Show Upload First button to show upload speed first PR#2
-- [x] Add Color Customizations to make the extension your own PR#7
-- [x] Add *Use Custom Font* button in Preference
-- [x] Add *Hide when Disconnected* button in Preference
-- [x] Add *Use Shorten Units* button in Preference
-- [x] Add *Restore Defaults* button in Preference
+- [x] Add Limit Unit option
+- [x] Add Gnome 40 Support
+- [x] Fix a bug where refresh time was getting reset to 6.5
+- [x] Used Min Width 3.0 by default
 
 #### Features
 - [x] Cleaner UI
 - [x] Adjustable Refresh rate
-- [x] Supports GNOME SHELL 3.38 and Backwards compatible
-- [x] Add [Preference](#Feature-Highlights-for-Preferences) Menu for extension customization
-- [x] Add *Vertical Alignment* Support
-- [x] Add *Two Icon sets* for Indicators
+- [x] [Preference](#Feature-Highlights-for-Preferences) Menu for extension customization
+- [x] *Vertical Alignment* Support
+- [x] *Two Icon sets* for Indicators
 
 #### Feature Highlights for Preferences
-- [x] Add *Lock Mouse Actions* button to Freeze [Mouse Events](#mouse-events)
-- [x] Add *Advance Position* menu to pinpoint where to place the indicator on the Panel.
-- [x] Add *Refresh time* field by which you can change refresh rate value between 1.0 sec to 10.0 sec.
-
+- [x] *Lock Mouse Actions* button to Freeze [Mouse Events](#mouse-events)
+- [x] *Advance Position* options to pinpoint where to place the indicator on the Panel
+- [x] *Refresh time* field by which you can change refresh rate value between 1.0 sec to 10.0 sec
+- [x] Show Upload First button to show upload speed first
+- [x] Color Customizations to make the extension your own
+- [x] *Hide when Disconnected* button in Preference
+- [x] *Use Shorten Units* button in Preference
+and more...
 
 If you faced an **issue** then you can **[file an issue here](https://github.com/prateekmedia/netspeedsimplified/issues)**
  
@@ -56,7 +56,7 @@ If you faced an **issue** then you can **[file an issue here](https://github.com
 - [m0hithreddy](https://github.com/m0hithreddy) for his support in rewriting extension.js with Clutter and rewriting readme.md, Adopting Make build system and more..
 [Know More](https://github.com/prateekmedia/netspeedsimplified/graphs/contributors)
 
-<h2 align="center">Installing Manually</h2>   
+<h2 align="center">Installing Manually</h2>
   
 ### Quick install
 For quick install use below command:
