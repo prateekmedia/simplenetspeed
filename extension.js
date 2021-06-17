@@ -32,10 +32,8 @@ function fetchSettings() {
         revIndicator: settings.get_boolean('reverseindicators'),
         lckMuseAct: settings.get_boolean('lockmouseactions'),
         minWidth: settings.get_double('minwidth'),
-        usefixedwidth: settings.get_boolean('usefixedwidth'),
         iconsToRight: settings.get_boolean('iconstoright'),
         textAlignLeft: settings.get_boolean('textalignleft'),
-        fixedwidth: settings.get_double('fixedwidth'),
         cusFont: settings.get_string('customfont'),
         hideInd: settings.get_boolean('hideindicator'),
         shortenUnits: settings.get_boolean('shortenunits'),
@@ -57,9 +55,6 @@ function pushSettings() {
     settings.set_int('fontmode', crStng.fontmode); 
     settings.set_boolean('togglebool', crStng.showTotalDwnld);
     settings.set_boolean('isvertical', crStng.isVertical);
-    settings.set_boolean('usefixedwidth', crStng.usefixedwidth);
-    
-
     initNs();
 }
 
@@ -117,11 +112,8 @@ function initNsLabels() {
     if(crStng.textAlignLeft){
         extraLabelInfo+="; text-align: left";
     }
-    if(crStng.usefixedwidth){
-        extraLabelInfo+="; width: " + crStng.fixedwidth +"em"
-    }else{
-        extraLabelInfo+="; min-width: " + crStng.minWidth +"em"
-    }
+    extraLabelInfo+="; min-width: " + crStng.minWidth +"em"
+    
 
     usLabel = new St.Label({
         text: '--',

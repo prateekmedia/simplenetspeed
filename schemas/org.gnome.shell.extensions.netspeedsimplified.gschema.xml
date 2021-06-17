@@ -21,18 +21,11 @@
         <range min="1.0" max="10.0" />
         <default>1.5</default>
       </key>
-      <key name="usefixedwidth" type="b">
-        <default>false</default>
-      </key>
       <key name="iconstoright" type="b">
         <default>false</default>
       </key>
       <key name="textalignleft" type="b">
         <default>false</default>
-      </key>
-      <key name="fixedwidth" type="d">
-        <range min="1.0" max="10.0" />
-        <default>5.0</default>
       </key>
       <key name="togglebool" type="b">
         <default>false</default>
@@ -50,6 +43,9 @@
       <key name="limitunit" type="i">
         <range min="0" max="7" />
         <default>0</default>
+      </key>
+      <key name="systemcolr" type="b">
+        <default>false</default>
       </key>
       <key name="lockmouseactions" type="b">
         <default>false</default>
@@ -70,6 +66,8 @@
       <key name="customfont" type="s">
         <default>""</default>
       </key>
+      <key name="systemcolr" type="b">
+        <default>
       <key name="uscolor" type="s">
         <default>"rgba(255, 255, 255, 1)"</default>
       </key>

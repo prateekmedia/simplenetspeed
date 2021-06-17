@@ -184,7 +184,7 @@ Prefs.prototype =
 	resetBtn.connect ("clicked", ()=>{
 		let strArray = ["customfont", "uscolor", "dscolor", "tscolor", "tdcolor"];
 		let intArray = ["wpos", "wposext", "refreshtime", "mode", "fontmode", "chooseiconset",];
-		let boolArray = ["isvertical", "togglebool", "reverseindicators", "lockmouseactions", "hideindicator", "shortenunits", "usefixedwidth"];
+		let boolArray = ["isvertical", "togglebool", "reverseindicators", "lockmouseactions", "hideindicator", "shortenunits", "iconstoright", "textalignleft"];
 		for (i in strArray){
 		  thset.set_string(strArray[i], thset.get_default_value(strArray[i]).unpack());
       		} 
@@ -263,14 +263,6 @@ Prefs.prototype =
 	let hboxMinWidth = newGtkBox();
 	vBoxSpinBtn("minwidth", hboxMinWidth, "Minimum Width", "Change Minimum Width value from anywhere b/w 3em to 10em", 3.0, 10.0, .5, 1);
 
-	//Use fixed Width
-	let hboxusefixedwidth = newGtkBox();
-	vBoxAddTgglBtn(hboxusefixedwidth, "Fixed Width", "usefixedwidth", "Toggle use of fixed width");
-
-	//Fixed Width
-	let hboxFixedWidth = newGtkBox();
-	vBoxSpinBtn("fixedwidth", hboxFixedWidth, "Fixed Width Size", "Set the fixed width size", 1.0, 10.0, .25, 2);
-	
 	//For Custom Font name
 	let hboxCustFont = newGtkBox();
 	vBoxAddEntry(hboxCustFont, "Custom Font Name", "customfont", "Enter the font name you want, you can also write style here for all elements except indicators");
