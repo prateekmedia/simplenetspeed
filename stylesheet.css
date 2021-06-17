@@ -2,7 +2,7 @@
 .forall{
     text-align: right;
     margin: 0 8px;
-    min-width:1em; /* edited by fluoroom son Fixed Width can go down to 1em, remove this comment when merging */
+    min-width:6.5em; 
 }
 
 /* Font change on middle click*/
