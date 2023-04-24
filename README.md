@@ -88,6 +88,7 @@ If you faced an **issue** then you can **[file an issue here](https://github.com
   - `tun[0-9]+`: TUN (l3 tunnel) interface
   - `tap[0-9]+`: TAP (l2 tunnel) interface
   - `wg[0-9]+`: tunnel interface created by [WireGuard](https://wireguard.com)
+  - `waydroid[0-9]+`: tunnel interface created by [Waydroid](https://waydro.id)
 
 <h2 align="center">Installing Manually</h2>
   
