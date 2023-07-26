@@ -330,7 +330,7 @@ Prefs.prototype = {
 
         //For Default sigma View
         let hboxToggleBool = newGtkBox()
-        new NssToggleBtn(hboxToggleBool, "Show Total Download speed", "togglebool", "Enabling it will show sigma by default")
+        new NssToggleBtn(hboxToggleBool, "Show Total Data Transfer", "togglebool", "Enabling it will always show the sigma")
 
         //For Toggling Old Icons
         let hboxIconset = newGtkBox()
