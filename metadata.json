@@ -3,13 +3,9 @@
   "description": "A Net Speed extension With Loads of Customization. Fork of simplenetspeed\n\nFull CHANGELOG can be found on github releases page\n\nFeatures \n1. Clean UI \n2. Adjustable Refresh rate \n3. Preferences to manage extension \n4. Vertical Alignment Support \n5. Two Icon sets for Indicators \n\nFeature Highlights for Preferences \n1. Lock Mouse Actions option \n2. Advance Position options to pinpoint where to place the indicator on the Panel. \n3. Refresh time option by which you can change refresh rate value between 1.0 and 10.0 seconds. \n4. Option to show upload speed first \n5. Color Customizations for speed indicators \n6. Option to Hide when Disconnected \n7. Option to use shorter units like K/s instead of KB/s \n8. Limit Unit option and more... \n\nModes \n1. Total net speed in terms of bits per second \n2. Total net speed in terms of bytes per second \n3. Combined Up & down speed in terms of bits per second \n4. Combined Up & down speed in terms of bytes per second \n5. Total transferred data in terms of bytes (Right click to reset counter) \n\nMouse Events \n- Left click to change modes \n- Right click(in 1-4 modes): Toggle the visibility of total transfer data. \n- Right click(in 5th mode): Reset total transfer data. \n- Right Click(Four consecutive times): Toggle through horizontal/vertical alignment. \n- Middle click: Cycle through the font sizes.",
   "name": "Net speed Simplified",
   "shell-version": [
-    "40",
-    "41",
-    "42",
-    "43",
-    "44"
+    "45"
   ],
   "url": "https://github.com/prateekmedia/netspeedsimplified",
   "uuid": "netspeedsimplified@prateekmedia.extension",
-  "version": 39
+  "version": 40
 }

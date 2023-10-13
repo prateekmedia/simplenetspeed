@@ -1,6 +1,6 @@
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
-import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.js';
 const ShellVersion = parseFloat(Config.PACKAGE_VERSION)
 const schema = "org.gnome.shell.extensions.netspeedsimplified"
@@ -10,10 +10,10 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
         let settings = this.getSettings(schema);
         window._settings = settings;
 
-        let crStng
+        let currentSettings
 
         function fetchSettings() {
-            crStng = {
+            currentSettings = {
                 refreshtime: settings.get_double('refreshtime'),
                 mode: settings.get_int('mode'),
                 fontmode: settings.get_int('fontmode'),
@@ -55,7 +55,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
 
         class NssSpinBtn {
             constructor(name, whichHbox, getLbl = "", getTooTip = "", lwer, uper, stpInc = 1, digs = 0, nume = true, pgeInc = 1, pgeSiz = 0, clmrate = 1) {
-                let boolComp = (crStng[name] === settings.get_default_value(name).unpack())
+                let boolComp = (currentSettings[name] === settings.get_default_value(name).unpack())
                 getLbl = boolComp ? getLbl :
                     `<i>${getLbl}</i>`
                 let whichLbl = new Gtk.Label({
@@ -76,15 +76,15 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                     digits: digs,
                     numeric: nume,
                 })
-                whichSpinBtn.set_value(crStng[name])
+                whichSpinBtn.set_value(currentSettings[name])
                 whichSpinBtn.connect('value-changed', () => {
                     this.rTValue = parseFloat(whichSpinBtn.get_value().toFixed(1))
-                    if (crStng[name] !== this.rTValue) {
+                    if (currentSettings[name] !== this.rTValue) {
                         settings.set_double(name, this.rTValue)
                         settings.set_boolean('restartextension', true)
                     }
 
-                    crStng[name] = this.rTValue
+                    currentSettings[name] = this.rTValue
                 })
                 whichLbl.set_hexpand(true)
                 addIt(whichHbox, whichLbl)
@@ -96,7 +96,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
 
         class NssComboBox {
             constructor(name, whichHbox, getLbl, aRray = [], getTooTip = "") {
-                let boolComp = (crStng[name] == settings.get_default_value(name).unpack())
+                let boolComp = (currentSettings[name] == settings.get_default_value(name).unpack())
                 getLbl = boolComp ? getLbl :
                     `<i>${getLbl}</i>`
                 let tootext = boolComp ? "" : "The Value is Changed"
@@ -115,13 +115,13 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                 aRray.forEach((val, _, __) => whichVlue.append_text(val))
 
 
-                whichVlue.set_active(crStng[name])
+                whichVlue.set_active(currentSettings[name])
                 whichVlue.connect('changed', (widget) => {
                     let valueMode = widget.get_active()
                     settings.set_int(name, valueMode)
                     settings.set_boolean('restartextension', true)
 
-                    crStng[name] = valueMode
+                    currentSettings[name] = valueMode
                 })
                 whichLbl.set_hexpand(true)
                 addIt(whichHbox, whichLbl)
@@ -135,7 +135,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
             constructor(whichHbox, getLbl, name, getTooTip = "", func) {
                 let boolComp = true
                 if (func == undefined) {
-                    boolComp = (crStng[name] == settings.get_default_value(name).unpack())
+                    boolComp = (currentSettings[name] == settings.get_default_value(name).unpack())
                     getLbl = boolComp ? getLbl :
                         `<i>${getLbl}</i>`
                 }
@@ -147,7 +147,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                     tooltip_text: getTooTip
                 })
                 let whichVlue = new Gtk.Switch({
-                    active: name ? crStng[name] : false,
+                    active: name ? currentSettings[name] : false,
                     tooltip_text: tootext
                 })
                 whichVlue.connect('notify::active', (widget) => {
@@ -158,7 +158,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                         settings.set_boolean('restartextension', true)
                     }
 
-                    crStng[name] = widget.active
+                    currentSettings[name] = widget.active
                 })
 
                 whichLbl.set_hexpand(true)
@@ -172,7 +172,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
         class NssColorBtn {
             constructor(whichHbox, getLbl, name, getToolTip = "") {
                 //Deterime whether the option value is changed from default value
-                let boolComp = (crStng[name] == settings.get_default_value(name).unpack())
+                let boolComp = (currentSettings[name] == settings.get_default_value(name).unpack())
                 getLbl = boolComp ? getLbl : `<i>${getLbl}</i>`
                 let tootext = boolComp ? "" : "The Value is Changed"
 
@@ -186,7 +186,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
 
                 //Create RGBA
                 let rgba = new Gdk.RGBA()
-                rgba.parse(crStng[name])
+                rgba.parse(currentSettings[name])
 
                 //Create ColorButton 
                 let colorButton = new Gtk.ColorButton({
@@ -198,7 +198,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                     settings.set_string(name, rgba.to_string())
                     settings.set_boolean('restartextension', true)
 
-                    crStng[name] = rgba.to_string()
+                    currentSettings[name] = rgba.to_string()
                 })
 
                 whichLbl.set_hexpand(true)
@@ -211,7 +211,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
 
         class NssEntry {
             constructor(whichHbox, getLbl, name, getTooTip = "", func) {
-                let boolComp = (crStng[name] == settings.get_default_value(name).unpack())
+                let boolComp = (currentSettings[name] == settings.get_default_value(name).unpack())
                 getLbl = boolComp ? getLbl :
                     `<i>${getLbl}</i>`
                 let tootext = boolComp ? "" : "The Value is Changed"
@@ -222,7 +222,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                     tooltip_text: getTooTip
                 })
                 let whichVlue = new Gtk.Entry({
-                    text: crStng[name],
+                    text: currentSettings[name],
                     tooltip_text: tootext,
                     placeholder_text: "Press Enter to apply"
                 })
@@ -234,7 +234,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                         settings.set_boolean('restartextension', true)
                     }
 
-                    crStng[name] = widget.get_text()
+                    currentSettings[name] = widget.get_text()
                 })
 
                 whichLbl.set_hexpand(true)

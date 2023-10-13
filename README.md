@@ -30,7 +30,7 @@
  </td>
 </table>
 
-***Supports GNOME 43, for GNOME SHELL < 40 you can use the previous versions of this extension***
+***Supports GNOME 45, for GNOME SHELL < 45 you can use the previous versions of this extension***
 
 **Note** : Full CHANGELOG can be found on [github releases](https://github.com/prateekmedia/netspeedsimplified/releases) page
 
@@ -71,6 +71,7 @@ If you faced an **issue** then you can **[file an issue here](https://github.com
 #### *Special Thanks to*
 - [biji](https://github.com/biji) for Creating [simplenetspeed](https://github.com/biji/simplenetspeed)
 - [m0hithreddy](https://github.com/m0hithreddy) for his support in rewriting extension.js with Clutter and rewriting readme.md, Adopting Make build system and more..
+- [remisiki](https://github.com/remisiki) for adding support for GNOME 45
 [Know More](https://github.com/prateekmedia/netspeedsimplified/graphs/contributors)
 
 ### Troubleshooting
