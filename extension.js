@@ -1,13 +1,12 @@
 //Imports
-const Clutter = imports.gi.Clutter,
-    St = imports.gi.St,
-    Main = imports.ui.main,
-    Gio = imports.gi.Gio,
-    PanelMenu = imports.ui.panelMenu,
-    Mainloop = imports.mainloop,
-    Me = imports.misc.extensionUtils.getCurrentExtension(),
-    ExtensionUtils = imports.misc.extensionUtils,
-    schema = 'org.gnome.shell.extensions.netspeedsimplified',
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+const schema = 'org.gnome.shell.extensions.netspeedsimplified',
     ButtonName = "ShowNetSpeedButton",
     rCConst = 4; //Right Click 4 times to toggle Vertical Alignment
 
@@ -381,32 +380,33 @@ function parseStat() {
     return true;
 }
 
-function _settingsChanged() {
-    if (settings.get_boolean('restartextension')) {
-        settings.set_boolean('restartextension', false);
-        disable();
-        enable();
-        parseStat();
+
+export default class NetSpeedSimplifiedExtension extends Extension {
+    _settingsChanged() {
+        if (settings.get_boolean('restartextension')) {
+            settings.set_boolean('restartextension', false);
+            this.disable();
+            this.enable();
+            parseStat();
+        }
     }
-}
 
-function init() { }
+    enable() {
+        settings = this.getSettings(schema);
 
-function enable() {
-    settings = ExtensionUtils.getSettings(schema);
+        fetchSettings(); // Automatically creates the netSpeed Button.
+        this._settingsChangedId = settings.connect('changed', () => this._settingsChanged());
+        parseStat();
 
-    fetchSettings(); // Automatically creates the netSpeed Button.
-    this._settingsChangedId = settings.connect('changed', this._settingsChanged);
-    parseStat();
+        //Run infinite loop.
+        timeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, crStng.refreshTime, parseStat);
+    }
 
-    //Run infinite loop.
-    timeout = Mainloop.timeout_add_seconds(crStng.refreshTime, parseStat);
-}
+    disable() {
+        crStng = null;
+        settings = null;
 
-function disable() {
-    crStng = null;
-    settings = null;
-    
-    Mainloop.source_remove(timeout);
-    nsDestroy();
+        GLib.source_remove(timeout);
+        nsDestroy();
+    }
 }

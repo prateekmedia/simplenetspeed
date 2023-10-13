@@ -1,34 +1,15 @@
-const Gtk = imports.gi.Gtk,
-    Gdk = imports.gi.Gdk
-
-const Config = imports.misc.config
+import Gtk from 'gi://Gtk';
+import Gdk from 'gi://Gdk';
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.js';
 const ShellVersion = parseFloat(Config.PACKAGE_VERSION)
+const schema = "org.gnome.shell.extensions.netspeedsimplified"
 
-const Me = imports.misc.extensionUtils.getCurrentExtension(),
-    ExtensionUtils = imports.misc.extensionUtils,
-    schema = "org.gnome.shell.extensions.netspeedsimplified"
+export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences {
+    getPreferencesWidget() {
+        let settings = this.getSettings(schema);
+        window._settings = settings;
 
-function init() { }
-
-function buildPrefsWidget() {
-    let prefs = new Prefs(schema)
-
-    return prefs.buildPrefsWidget()
-}
-
-function Prefs(schema) {
-    this.init(schema)
-}
-
-Prefs.prototype = {
-    settings: null,
-    init: function (schema) {
-        let settings = ExtensionUtils.getSettings(schema)
-        this.settings = settings
-    },
-
-    buildPrefsWidget: function () {
-        let settings = this.settings
         let crStng
 
         function fetchSettings() {
@@ -287,16 +268,16 @@ Prefs.prototype = {
             let intArray = ["wpos", "wposext", "mode", "fontmode", "chooseiconset", "textalign"]
             let doubleArray = ["refreshtime", "minwidth"]
             let boolArray = ["isvertical", "togglebool", "reverseindicators", "lockmouseactions", "hideindicator", "shortenunits", "iconstoright"]
-            for (i in strArray) {
+            for (const i in strArray) {
                 settings.set_string(strArray[i], settings.get_default_value(strArray[i]).unpack())
             }
-            for (j in intArray) {
+            for (const j in intArray) {
                 settings.set_int(intArray[j], settings.get_default_value(intArray[j]).unpack())
             }
-            for (k in doubleArray) {
+            for (const k in doubleArray) {
                 settings.set_double(doubleArray[k], settings.get_default_value(doubleArray[k]).unpack())
             }
-            for (l in boolArray) {
+            for (const l in boolArray) {
                 settings.set_boolean(boolArray[l], settings.get_default_value(boolArray[l]).unpack())
             }
             settings.set_boolean('restartextension', true)
@@ -396,6 +377,6 @@ Prefs.prototype = {
         addIt(vbox, resetBtn)
         frame.child = vbox
 
-        return frame
-    },
+        return frame;
+    }
 }
