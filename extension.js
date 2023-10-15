@@ -116,11 +116,7 @@ function getStyle(isIcon = false) {
 }
 
 function byteArrayToString(bytes) {
-    if (global.TextDecoder) {
-        return new TextDecoder().decode(bytes);
-    }
-
-    return imports.byteArray.toString(bytes);
+    return new TextDecoder().decode(bytes);
 }
 
 function initNsLabels() {
