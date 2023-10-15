@@ -6,7 +6,7 @@ import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/
 
 const schema = "org.gnome.shell.extensions.netspeedsimplified"
 
-let settings, currentSettings
+let settings, currentSettings, vbox
 
 function fetchSettings() {
     currentSettings = {
@@ -253,7 +253,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
             xalign: 0,
             margin_top: 15
         })
-        let vbox = new Gtk.Box({
+        vbox = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             margin_start: 25,
             margin_end: 25,
