@@ -401,6 +401,15 @@ export default class NetSpeedSimplifiedExtension extends Extension {
     disable() {
         currentSettings = null;
         settings = null;
+        
+        usLabel = null;
+        dsLabel = null;
+        tsLabel = null;
+        tdLabel = null;
+        usIcon = null;
+        dsIcon = null;
+        tsIcon = null;
+        tdIcon = null;
 
         GLib.source_remove(timeout);
         nsDestroy();
