@@ -240,11 +240,11 @@ class NssEntry {
 }
 
 export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences {
-    getPreferencesWidget() {
+    async getPreferencesWidget() {
         settings = this.getSettings(schema)
         window._settings = settings
 
-        fetchSettings()
+        await fetchSettings()
 
         let frame = new Gtk.ScrolledWindow()
         let label = new Gtk.Label({
@@ -264,7 +264,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
             margin_bottom: 15
         })
 
-        resetBtn.connect("clicked", () => {
+        resetBtn.connect("clicked", async () => {
             let strArray = ["customfont", "uscolor", "dscolor", "tscolor", "tdcolor"]
             let intArray = ["wpos", "wposext", "mode", "fontmode", "chooseiconset", "textalign"]
             let doubleArray = ["refreshtime", "minwidth"]
@@ -282,7 +282,7 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
                 settings.set_boolean(boolArray[l], settings.get_default_value(boolArray[l]).unpack())
             }
             settings.set_boolean('restartextension', true)
-            fetchSettings()
+            await fetchSettings()
         })
 
         addIt(vbox, label)
@@ -357,7 +357,6 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
         // For Custom Font name
         let hboxSysColr = newGtkBox()
         new NssToggleBtn(hboxSysColr, "Use System Color Scheme", "systemcolr", "Enabling it will allow changing font color dynamically based on panel color")
-
 
         // Upload Speed Color 
         let usColorButton = newGtkBox()
