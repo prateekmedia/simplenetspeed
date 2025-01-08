@@ -33,6 +33,7 @@ function fetchSettings() {
         tscolor: settings.get_string('tscolor'),
         tdcolor: settings.get_string('tdcolor')
     }
+    console.log("fetchSettings - currentSettings type:", typeof currentSettings); // Debugging line
 }
 
 function addIt(element, child) {
@@ -244,7 +245,8 @@ export default class NetSpeedSimplifiedPreferences extends ExtensionPreferences 
         settings = this.getSettings(schema)
         window._settings = settings
 
-        await fetchSettings()
+        fetchSettings()
+        console.log("fetchSettings - currentSettings type:", typeof currentSettings); // Debugging line
 
         let frame = new Gtk.ScrolledWindow()
         let label = new Gtk.Label({
